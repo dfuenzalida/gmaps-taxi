@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBmnmPhWoSxxaQ-oJeTiCN_9ooVZVoBVHw&sensor=false">
+    </script>
+    <script type="text/javascript">
+    
+      var movistarMarker;
+      var movil933Marker;
+      
+      function initialize() {
+        var myOptions = {
+          center: new google.maps.LatLng(-33.440,-70.633),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+            
+        var movistar = new google.maps.LatLng(-33.436043,-70.629905);
+        
+        movistarMarker = new google.maps.Marker({
+          map: map,
+          draggable: false,
+          position: movistar,
+          icon: 'Taxi-icon.png',
+          shadow: 'Taxi-shadow.png',
+          title: 'Movistar Innova'
+        });
+        
+        google.maps.event.addListener(movistarMarker, 'click', function(){
+          movistarMarker.setPosition( new google.maps.LatLng(-33.436043, -70.629905) );
+        });
+
+        var movil933 = new google.maps.LatLng(-33.4377,-70.63282);
+        var newIcon = 'https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small_withshadow&chld=taxi|bb|993|FFFFFF|000000'
+        movil933Marker = new google.maps.Marker({
+          map: map,
+          draggable: false,
+          position: movil933,
+          icon: newIcon,
+          title: 'Movil 993'
+        });
+        
+      }
+      
+      function randomMoveTaxi(){
+        randomMoveMarker(movistarMarker, -33.436, -70.629);
+      }
+      
+      function randomMoveMarker(marker, lat, lng){
+        lat += Math.random() / 300;
+        lng += Math.random() / 300;
+        marker.setPosition( new google.maps.LatLng(lat, lng) );
+      }
+      
+      function geolocate(position){
+        movil933Marker.setPosition(
+          new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        );
+      }
+      
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(geolocate, function(){ alert("geolocation no disponible")} );
+      }
+      
+      window.setInterval("randomMoveTaxi()", 1000);
+
+    </script>
+  </head>
+  <body onload="initialize()">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </body>
+</html>

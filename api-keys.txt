@@ -1,0 +1,5 @@
+Key for browser apps (with referers)
+API key:        AIzaSyBmnmPhWoSxxaQ-oJeTiCN_9ooVZVoBVHw
+Referers:       Any referer allowed
+Activated on:   Feb 15, 2012 6:05 AM
+Activated by:   denis.fuenzalida@gmail.com – you
